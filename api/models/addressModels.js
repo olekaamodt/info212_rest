@@ -23,6 +23,9 @@ var AddressSchema = new Schema({
         type:Number
     }
     
+  },
+  image: {
+    type: String,
   }
 });
 

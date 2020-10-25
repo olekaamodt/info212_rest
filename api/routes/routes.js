@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-  var AddressList = require('../controllers/controller');
+  var AddressList = require('../controllers/AddressController');
 
   // AddressList Routes
   app.route('/Addresses')
