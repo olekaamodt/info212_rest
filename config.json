@@ -1,3 +1,4 @@
 {
-    "mongoAddress":"mongodb+srv://Olek:admin@cluster0.jjq8h.mongodb.net/Info212"
+    "mongoAddress":"mongodb+srv://Olek:admin@cluster0.jjq8h.mongodb.net/Info212",
+    "localMongo":"localhost:27017/Info212"
 }

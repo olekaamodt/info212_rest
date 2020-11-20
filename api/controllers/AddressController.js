@@ -4,10 +4,12 @@ var crawler = require("../crawler/crawler")
 const cheerio = require('cheerio');
 
 function returnData(data) {
+  
   crawler(data.image).then((res) => {
     const html = res.data;
     const $ = cheerio.load(html);
     const imageUrl = "hybel.no" +  $('.listing-detail').children()[0].children[0].next.attribs.href;
+    console.log(imageUrl)
     var address = {
       address: data.address ,
       city: data.city,
@@ -15,14 +17,22 @@ function returnData(data) {
       image: imageUrl,
       coordinates: data.coordinates
     }
-    return address
+    
+    var new_address = new Address(address);
+    new_address.save(function(err, address) {
+      if (err)
+        res.send(err);
+      //res.json(address);
+    })
+
   });
+  
 }
 
 var mongoose = require('mongoose'),
-  Address = mongoose.model('AddressData');
+Address = mongoose.model('AddressData');
 
-exports.list_all_addresses = function(req, res) {
+  exports.list_all_addresses = function(req, res) {
   Address.find({}, function(err, address) {
     if (err)
       res.send(err);
@@ -34,14 +44,10 @@ exports.list_all_addresses = function(req, res) {
 
 
 exports.create_a_address = function(req, res) {
-    var address = returnData(req.body)
 
-    var new_address = new Address(address);
-    new_address.save(function(err, address) {
-      if (err)
-        res.send(err);
-      res.json(address);
-    });
+    var address = returnData(req.body)
+    console.log(address)
+    
   
 };
 
